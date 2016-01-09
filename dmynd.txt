@@ -1,0 +1,8 @@
+Movie Title, Release Year, MPAA Rating, Run Time
+There's Something About Mary, 1998, R, 2:14
+How to Lose a Guy in 10 Days, 2003, PG-13, 1:56
+Knocked Up, 2007, R, 2:08
+The Wedding Singer, 1998, PG-13, 1:36
+High Fidelity, 2000, R, 1:54
+Sleepless in Seattle, 1993, PG, 1:46
+The Proposal, 2009, PG-13, 1:48
