@@ -6,16 +6,12 @@ import java.io.InputStreamReader;
 
 public class TheatreManagement {
 	public static void main(String[] args) {
-		FileInputStream fileIStream = null;
-		InputStreamReader iStreamReader = null;
-		int intIStreamReader;
-
+		BufferedReader br = null;
+		String line = " ";
 		try {
-			fileIStream = new FileInputStream(args[0]);
-			iStreamReader = new InputStreamReader(fileIStream);
-			
-			while ((intIStreamReader = iStreamReader.read()) != -1) {
-				System.out.print((char) intIStreamReader);
+			br = new BufferedReader(new FileReader(args[0]));
+			while ((line = br.readLine()) != null) {
+				System.out.println(line);
 			}		
 		}
 		catch (IOException e) {
@@ -23,8 +19,8 @@ public class TheatreManagement {
 		} 		
 		finally {
 			try {
-				if (fileIStream != null)
-					fileIStream.close();
+				if (br != null)
+					br.close();
 			} 
 			catch (IOException ex) {
 				ex.printStackTrace();
