@@ -5,26 +5,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class TheatreManagement {
+	
+	static BufferedReader bReader = null;
+	static String bLine = "";
+	
 	public static void main(String[] args) {
-		BufferedReader br = null;
-		String line = " ";
-		try {
-			br = new BufferedReader(new FileReader(args[0]));
-			while ((line = br.readLine()) != null) {
-				System.out.println(line);
-			}		
+		try{
+			readFile(args[0]);
 		}
-		catch (IOException e) {
-			e.printStackTrace();
-		} 		
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			} 
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
+		catch(Exception e){
+			System.out.println(e);
 		}
+		
+	}
+	
+	public static void readFile(String fileName) throws IOException {
+		bReader = new BufferedReader(new FileReader(fileName));
+		while ((bLine = bReader.readLine()) != null) {
+			System.out.println(bLine);
+		}		
 	}
 }
