@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TheatreManagement {
 	public static void main(String[] args) {
@@ -19,14 +20,14 @@ public class TheatreManagement {
 	static String bLine = "";
 	static ArrayList<String> bLineArray = new ArrayList<String>();
 	static String singleMovie[] = new String[200];
-	static DateFormat df = new SimpleDateFormat("H:m");
+	static DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 	
 	public static void readFile(String fileName) throws IOException {
 		bReader = new BufferedReader(new FileReader(fileName));
 		while ((bLine = bReader.readLine()) != null) {
-			//System.out.println(bLine);
 			bLineArray.add(bLine);
 		}	
+		bLineArray.remove(0);
 		getSingleMovie(bLineArray);
 	}
 	
