@@ -8,39 +8,37 @@ import java.util.Date;
 
 public class TheatreManagement {
 	public static void main(String[] args) {
-		try{
+		try {
 			readFile(args[0]);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
-	
+
 	static BufferedReader bReader = null;
 	static String bLine = "";
 	static ArrayList<String> bLineArray = new ArrayList<String>();
-	static String singleMovie[] = new String[200];
+	static String movieInfo[] = new String[200];
 	static DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-	
+
 	public static void readFile(String fileName) throws IOException {
 		bReader = new BufferedReader(new FileReader(fileName));
 		while ((bLine = bReader.readLine()) != null) {
 			bLineArray.add(bLine);
-		}	
+		}
 		bLineArray.remove(0);
-		getSingleMovie(bLineArray);
+		for (int i = 0; i < bLineArray.size(); i++)
+			getSingleMovie(bLineArray.get(i));
 	}
-	
-	public static void getSingleMovie(ArrayList<String> movies){
-		for(String movie : movies){
-			singleMovie = movie.split(",");
-			for(int i = 0; i < singleMovie.length; i++){
-				System.out.print(singleMovie[i] + " ");
-			}
+
+	public static void getSingleMovie(String movie) {
+		movieInfo = movie.split(",");
+		for (int i = 0; i < movieInfo.length; i++) {
+			System.out.print(movieInfo[i] + " ");
 		}
 	}
-	
-	public static void createShowTimes(String[] singleMovie){
-		
+
+	public static void createShowTimes(String[] singleMovie) {
+
 	}
 }
