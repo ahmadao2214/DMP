@@ -32,9 +32,9 @@ public class TheatreManagement {
 	}
 
 	public static void getSingleMovie(String movie) {
-		movieInfo = movie.split(",");
+		movieInfo = movie.split(":", 1);
 		for (int i = 0; i < movieInfo.length; i++) {
-			System.out.print(movieInfo[i] + " ");
+			System.out.print(movieInfo[i] + "\n");
 		}
 	}
 
