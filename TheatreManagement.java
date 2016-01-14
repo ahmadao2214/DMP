@@ -28,6 +28,11 @@ public class TheatreManagement {
 	};
 	static int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
 	static boolean weekend = false;
+	
+	static int weekdayOpen = 660,
+			weekdayClose = 1380, 
+			weekendOpen = 630,
+			weekendClose = 1410;
 
 	public static void readFile(String fileName) throws IOException {
 		bReader = new BufferedReader(new FileReader(fileName));
@@ -47,13 +52,27 @@ public class TheatreManagement {
 	public static void createShowTimes(String[] singleMovie) {
 		String singleMovieTitleSplitArray[] = new String[200];
 		String formattedTitle = " ";
-		String movieDuration = " ";
+		int movieDuration = 0;
 		for (int i = 0; i < singleMovie.length; i++) {
-			singleMovieTitleSplitArray = singleMovie[i].split(",");
-			
+			singleMovieTitleSplitArray = singleMovie[i].split(","); 
 			formattedTitle = singleMovieTitleSplitArray[0] + " - Rated " + singleMovieTitleSplitArray[2] + ", " + singleMovieTitleSplitArray[3];
-			movieDuration = singleMovieTitleSplitArray[3];
-			System.out.println(formattedTitle + " = " + convertIntoMinutes(movieDuration) + " minutes.");
+			movieDuration = convertIntoMinutes(singleMovieTitleSplitArray[3]);
+			//System.out.println(formattedTitle + " = " + movieDuration + " minutes");
+			if(!isWeekend(dayOfWeek)){
+				int hours = 0;
+				int minutes = 0;
+				while(weekdayClose > (weekdayOpen + 60)){
+					hours = (weekdayClose - movieDuration) / 60;
+					minutes = (weekdayClose - movieDuration) % 60;
+					System.out.printf("%d:%02d \n", hours, minutes);
+					weekdayClose -= (movieDuration+35);
+				}
+			}
+			else{
+				while((weekendOpen + 60)> 690){
+					
+				}
+			}
 		}
 	}
 	
@@ -69,7 +88,9 @@ public class TheatreManagement {
 	
 	public static boolean isWeekend(int day){
 		if (day == 1 || day == 6 || day == 7)
-			return true;
-		return false;
+			weekend = true;
+		else
+			weekend = false;
+		return weekend;
 	}
 }
