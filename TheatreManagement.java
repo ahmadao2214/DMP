@@ -45,13 +45,26 @@ public class TheatreManagement {
 	}
 
 	public static void createShowTimes(String[] singleMovie) {
-		String tmp[] = new String[200];
-		String temp = " ";
+		String singleMovieTitleSplitArray[] = new String[200];
+		String formattedTitle = " ";
+		String movieDuration = " ";
 		for (int i = 0; i < singleMovie.length; i++) {
-			tmp = singleMovie[i].split(",");
-			temp = tmp[0] + " - Rated " + tmp[2] + ", " + tmp[3];
-			System.out.println(temp);
+			singleMovieTitleSplitArray = singleMovie[i].split(",");
+			
+			formattedTitle = singleMovieTitleSplitArray[0] + " - Rated " + singleMovieTitleSplitArray[2] + ", " + singleMovieTitleSplitArray[3];
+			movieDuration = singleMovieTitleSplitArray[3];
+			System.out.println(formattedTitle + " = " + convertIntoMinutes(movieDuration) + " minutes.");
 		}
+	}
+	
+	public static int convertIntoMinutes(String md){
+		int minutes=0;
+		md = md.trim();
+	    String[] arr= md.split(":");
+	    if(arr.length==2){
+	        minutes=Integer.parseInt(arr[0])*60+Integer.parseInt(arr[1]);
+	    }
+		return minutes;
 	}
 	
 	public static boolean isWeekend(int day){
