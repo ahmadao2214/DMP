@@ -11,7 +11,6 @@ public class TheatreManagement {
 					(now.get(Calendar.MONTH) + 1) + "/" + 
 					now.get(Calendar.DATE) + "/" + 
 					now.get(Calendar.YEAR) + " ");
-			System.out.println("Is " + strDays[now.get(Calendar.DAY_OF_WEEK) - 1] + " the weekend: " + isWeekend(dayOfWeek));
 			readFile(args[0]);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -25,7 +24,7 @@ public class TheatreManagement {
 	
 	static Calendar now = Calendar.getInstance();
 	static String[] strDays = new String[] { 
-			"Sunday", "Monday", "Tuesday", "Wednesday", "Thusday", "Friday","Saturday"
+			"Sunday", "Monday", "Tuesday", "Wednesday", "Thusday", "Friday", "Saturday"
 	};
 	static int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
 	static boolean weekend = false;
@@ -46,8 +45,12 @@ public class TheatreManagement {
 	}
 
 	public static void createShowTimes(String[] singleMovie) {
+		String tmp[] = new String[200];
+		String temp = " ";
 		for (int i = 0; i < singleMovie.length; i++) {
-			System.out.println(singleMovie[i]);
+			tmp = singleMovie[i].split(",");
+			temp = tmp[0] + " - Rated " + tmp[2] + ", " + tmp[3];
+			System.out.println(temp);
 		}
 	}
 	
