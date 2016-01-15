@@ -3,10 +3,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class TheatreManagement {
 	public static void main(String[] args) {
 		try {
+			Date date = new Date();
+			System.out.println(date.toString());
 			System.out.println(strDays[now.get(Calendar.DAY_OF_WEEK) - 1] + " " +
 					(now.get(Calendar.MONTH) + 1) + "/" + 
 					now.get(Calendar.DATE) + "/" + 
@@ -29,10 +32,6 @@ public class TheatreManagement {
 	static int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
 	static boolean weekend = false;
 	
-	static int weekdayOpen = 660,
-			weekdayClose = 1380, 
-			weekendOpen = 630,
-			weekendClose = 1410;
 
 	public static void readFile(String fileName) throws IOException {
 		bReader = new BufferedReader(new FileReader(fileName));
@@ -59,19 +58,10 @@ public class TheatreManagement {
 			movieDuration = convertIntoMinutes(singleMovieTitleSplitArray[3]);
 			//System.out.println(formattedTitle + " = " + movieDuration + " minutes");
 			if(!isWeekend(dayOfWeek)){
-				int hours = 0;
-				int minutes = 0;
-				while(weekdayClose > (weekdayOpen + 60)){
-					hours = (weekdayClose - movieDuration) / 60;
-					minutes = (weekdayClose - movieDuration) % 60;
-					System.out.printf("%d:%02d \n", hours, minutes);
-					weekdayClose -= (movieDuration+35);
+				
 				}
-			}
 			else{
-				while((weekendOpen + 60)> 690){
-					
-				}
+			
 			}
 		}
 	}
