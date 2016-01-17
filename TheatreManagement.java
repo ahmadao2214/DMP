@@ -14,7 +14,7 @@ public class TheatreManagement {
 			System.out.println(strDays[now.get(Calendar.DAY_OF_WEEK) - 1] + " " + (now.get(Calendar.MONTH) + 1) + "/"
 					+ now.get(Calendar.DATE) + "/" + now.get(Calendar.YEAR) + " ");
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
 			Date tmp = sdf.parse(weekdayOpen);
 			String wdo = sdf.format(tmp).toString();
 			StringBuilder sb = new StringBuilder(wdo);
