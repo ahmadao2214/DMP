@@ -108,10 +108,10 @@ public class TheatreManagement {
 	}
 	
 	private static void timeScheduler(int movieDuration, boolean weekend){
-		int weekendOpenInMinutes = convertIntoMinutes(weekendOpen);
-		int weekendClosedInMinutes = convertIntoMinutes(weekendClose);
-		int weekdayOpenInMinutes = convertIntoMinutes(weekdayOpen);
-		int weekdayClosedInMinutes = convertIntoMinutes(weekdayClose);
+		int weekendOpenInMinutes = convertIntoMinutes(weekendOpen); //630
+		int weekendClosedInMinutes = convertIntoMinutes(weekendClose); //1410
+		int weekdayOpenInMinutes = convertIntoMinutes(weekdayOpen); //660
+		int weekdayClosedInMinutes = convertIntoMinutes(weekdayClose); //1380
 		int tmp = weekdayOpenInMinutes+60;
 		
 		if(weekend){
@@ -131,17 +131,21 @@ public class TheatreManagement {
 			}
 		}
 		else{
-			while((weekdayOpenInMinutes+60) < weekdayClosedInMinutes){
+			while((weekdayOpenInMinutes + 60) < weekdayClosedInMinutes){
 				weekdayOpenInMinutes += (movieDuration + 60);
-				try{
-					while(tmp % 5 != 0){
-						tmp += 1;
+				//System.out.println(weekdayOpenInMinutes);
+				while(tmp % 5 != 0){
+					tmp += 1;
+				}
+				if(weekdayOpenInMinutes < weekdayClosedInMinutes){
+					try{
+						System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(weekdayOpenInMinutes)));
 					}
-					System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(weekdayOpenInMinutes)));
+					catch(Exception e){
+						System.out.println(e);
+					}
 				}
-				catch(Exception e){
-					System.out.println(e);
-				}
+				
 				weekdayOpenInMinutes += 35;
 				tmp = weekdayOpenInMinutes;
 			}
