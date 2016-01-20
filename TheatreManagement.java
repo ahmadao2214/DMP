@@ -107,7 +107,7 @@ public class TheatreManagement {
 				+ now.get(Calendar.DATE) + "/" + now.get(Calendar.YEAR) + " ";
 	}
 	
-	public static void timeScheduler(int movieDuration, boolean weekend){
+	private static void timeScheduler(int movieDuration, boolean weekend){
 		int weekendOpenInMinutes = convertIntoMinutes(weekendOpen);
 		int weekendClosedInMinutes = convertIntoMinutes(weekendClose);
 		int weekdayOpenInMinutes = convertIntoMinutes(weekdayOpen);
@@ -118,6 +118,9 @@ public class TheatreManagement {
 			while(((weekendOpenInMinutes+60) < weekendClosedInMinutes)){
 				weekendOpenInMinutes += movieDuration;
 				try{
+					while(tmp % 5 != 0){
+						tmp += 1;
+					}
 					System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(weekendOpenInMinutes)));
 				}
 				catch(Exception e){
@@ -131,6 +134,9 @@ public class TheatreManagement {
 			while((weekdayOpenInMinutes+60) < weekdayClosedInMinutes){
 				weekdayOpenInMinutes += (movieDuration + 60);
 				try{
+					while(tmp % 5 != 0){
+						tmp += 1;
+					}
 					System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(weekdayOpenInMinutes)));
 				}
 				catch(Exception e){
