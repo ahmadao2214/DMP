@@ -11,7 +11,8 @@ public class TheatreManagement {
 	public static void main(String[] args) {
 		try {
 			System.out.println(printCurrentDate());
-			//System.out.println(convertIntoMinutes(dateString(weekdayClose)));
+			//System.out.println(convertIntoMinutes(dateString(weekendClose)));
+			//System.out.println(minutesToTime(1410));
 			//System.out.println(dateString(weekdayOpen) + "  - " + dateString(weekdayClose));
 			readFile(args[0]);
 		} catch (Exception e) {
@@ -33,10 +34,10 @@ public class TheatreManagement {
 	static SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 	static Date day = new Date();
 
-	static String weekdayOpen = "11:00";
-	static String weekdayClose = "23:00";
-	static String weekendOpen = "11:30";
-	static String weekendClose = "23:30";
+	private static String weekdayOpen = "11:00";
+	private static String weekdayClose = "23:00";
+	private static String weekendOpen = "11:30";
+	private static String weekendClose = "23:30";
 	
 	
 	
@@ -58,19 +59,12 @@ public class TheatreManagement {
 	public static void createShowTimes(String[] singleMovie) {
 		String singleMovieTitleSplitArray[] = new String[200];
 		String formattedTitle = " ";
-		//int movieDuration = 0;
+		int movieDuration = 0;
 		for (int i = 0; i < singleMovie.length; i++) {
 			singleMovieTitleSplitArray = singleMovie[i].split(","); 
 			formattedTitle = singleMovieTitleSplitArray[0] + " - Rated " + singleMovieTitleSplitArray[2] + ", " + singleMovieTitleSplitArray[3];
-			//movieDuration = convertIntoMinutes(singleMovieTitleSplitArray[3]);
-			System.out.println(formattedTitle);
-			System.out.println("Schedule goes here");
-			if(!isWeekend(dayOfWeek)){
-				System.out.println("It's not the weekend\n");
-				}
-			else{
-				System.out.println("IT'S THE WEEKEND\n");
-			}
+			movieDuration = convertIntoMinutes(singleMovieTitleSplitArray[3]);
+			timeScheduler(movieDuration, isWeekend(dayOfWeek));
 		}
 	}
 	
@@ -87,8 +81,16 @@ public class TheatreManagement {
 	    minutes=Integer.parseInt(arr[0])*60+Integer.parseInt(arr[1]);
 		return minutes;
 	}
+	
+	public static String minutesToTime(int min){
+		String startTime = "00:00";
+		int h = min / 60 + Integer.valueOf(startTime.substring(0,1));
+		int m = min % 60 + Integer.valueOf(startTime.substring(3,4));
+		String newtime = h+":"+m;
+		return newtime;
+	}
 
-	public static boolean isWeekend(int day){
+	private static boolean isWeekend(int day){
 		if (day == 1 || day == 6 || day == 7)
 			return true;
 		else
@@ -98,5 +100,22 @@ public class TheatreManagement {
 	public static String printCurrentDate(){
 		return strDays[now.get(Calendar.DAY_OF_WEEK) - 1] + " " + (now.get(Calendar.MONTH) + 1) + "/"
 				+ now.get(Calendar.DATE) + "/" + now.get(Calendar.YEAR) + " ";
+	}
+	
+	public static void timeScheduler(int movieDuration, boolean weekend){
+		int weekendOpenMinutes = convertIntoMinutes(weekendOpen);
+		int weekendClosedMinutes = convertIntoMinutes(weekendClose);
+		int weekdayOpenMinutes = convertIntoMinutes(weekdayOpen);
+		int weekdayClosedMinutes = convertIntoMinutes(weekdayClose);
+		
+		if(weekend){
+			while(weekendClosedMinutes > weekendOpenMinutes){
+				weekendClosedMinutes -= movieDuration;
+				
+			}
+		}
+		else{
+			
+		}
 	}
 }
