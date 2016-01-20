@@ -10,19 +10,17 @@ import java.util.Date;
 public class TheatreManagement {
 	public static void main(String[] args) {
 		try {
-			System.out.println(printCurrentDate());
+			System.out.println(printCurrentDate()+"\n");
 			//System.out.println(convertIntoMinutes(dateString(weekendClose)));
 			//System.out.println(minutesToTime(1410));
 			//System.out.println(dateString(weekdayOpen) + "  - " + dateString(weekdayClose));
+			//System.out.println(formatTime("20:46"));
 			readFile(args[0]);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
 	
-	
-	
-
 	static BufferedReader bReader = null;
 	static String bLine = "";
 	static ArrayList<String> bLineArray = new ArrayList<String>();
@@ -38,10 +36,7 @@ public class TheatreManagement {
 	private static String weekdayClose = "23:00";
 	private static String weekendOpen = "11:30";
 	private static String weekendClose = "23:30";
-	
-	
-	
- 
+
 	public static void readFile(String fileName) throws IOException {
 		bReader = new BufferedReader(new FileReader(fileName));
 		while ((bLine = bReader.readLine()) != null) {
@@ -64,6 +59,7 @@ public class TheatreManagement {
 			singleMovieTitleSplitArray = singleMovie[i].split(","); 
 			formattedTitle = singleMovieTitleSplitArray[0] + " - Rated " + singleMovieTitleSplitArray[2] + ", " + singleMovieTitleSplitArray[3];
 			movieDuration = convertIntoMinutes(singleMovieTitleSplitArray[3]);
+			System.out.println(formattedTitle);
 			timeScheduler(movieDuration, isWeekend(dayOfWeek));
 		}
 	}
@@ -84,10 +80,19 @@ public class TheatreManagement {
 	
 	public static String minutesToTime(int min){
 		String startTime = "00:00";
+		String newtime;
 		int h = min / 60 + Integer.valueOf(startTime.substring(0,1));
 		int m = min % 60 + Integer.valueOf(startTime.substring(3,4));
-		String newtime = h+":"+m;
+		newtime = h+":"+m;
 		return newtime;
+	}
+	
+	public static String formatTime(String twentyFour)throws ParseException{
+		SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+		Date _24HourDt = _24HourSDF.parse(twentyFour);
+		String nTime = _12HourSDF.format(_24HourDt);
+		return nTime;
 	}
 
 	private static boolean isWeekend(int day){
@@ -103,19 +108,37 @@ public class TheatreManagement {
 	}
 	
 	public static void timeScheduler(int movieDuration, boolean weekend){
-		int weekendOpenMinutes = convertIntoMinutes(weekendOpen);
-		int weekendClosedMinutes = convertIntoMinutes(weekendClose);
-		int weekdayOpenMinutes = convertIntoMinutes(weekdayOpen);
-		int weekdayClosedMinutes = convertIntoMinutes(weekdayClose);
+		int weekendOpenInMinutes = convertIntoMinutes(weekendOpen);
+		int weekendClosedInMinutes = convertIntoMinutes(weekendClose);
+		int weekdayOpenInMinutes = convertIntoMinutes(weekdayOpen);
+		int weekdayClosedInMinutes = convertIntoMinutes(weekdayClose);
 		
 		if(weekend){
-			while(weekendClosedMinutes > weekendOpenMinutes){
-				weekendClosedMinutes -= movieDuration;
-				
+			while(weekendClosedInMinutes > weekendOpenInMinutes){
+				int tmp = weekendClosedInMinutes;
+				weekendClosedInMinutes -= movieDuration;
+				try{
+					System.out.println(formatTime(minutesToTime(weekendClosedInMinutes)) + " - " + formatTime(minutesToTime(tmp)));
+				}
+				catch(Exception e){
+					System.out.println(e);
+				}
 			}
 		}
 		else{
-			
+			while(weekdayClosedInMinutes > weekdayOpenInMinutes){
+				int tmp = weekdayClosedInMinutes;
+				weekdayClosedInMinutes -= movieDuration;
+				try{
+					System.out.println(formatTime(minutesToTime(weekdayClosedInMinutes)) + " - " + formatTime(minutesToTime(tmp)));
+				}
+				catch(Exception e){
+					System.out.println(e);
+				}
+				
+			}
 		}
+		
+		System.out.println();
 	}
 }
