@@ -114,28 +114,30 @@ public class TheatreManagement {
 		int weekdayClosedInMinutes = convertIntoMinutes(weekdayClose);
 		
 		if(weekend){
-			while(weekendClosedInMinutes > weekendOpenInMinutes){
-				int tmp = weekendClosedInMinutes;
-				weekendClosedInMinutes -= movieDuration;
+			while(((weekendOpenInMinutes+60) < weekendClosedInMinutes)){
+				int tmp = weekendOpenInMinutes+60;
+				weekendOpenInMinutes += movieDuration;
 				try{
-					System.out.println(formatTime(minutesToTime(weekendClosedInMinutes)) + " - " + formatTime(minutesToTime(tmp)));
-				}
-				catch(Exception e){
-					System.out.println(e);
-				}
-			}
-		}
-		else{
-			while(weekdayClosedInMinutes > weekdayOpenInMinutes){
-				int tmp = weekdayClosedInMinutes;
-				weekdayClosedInMinutes -= movieDuration;
-				try{
-					System.out.println(formatTime(minutesToTime(weekdayClosedInMinutes)) + " - " + formatTime(minutesToTime(tmp)));
+					System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(weekendOpenInMinutes)));
 				}
 				catch(Exception e){
 					System.out.println(e);
 				}
 				
+				weekendOpenInMinutes += 35;
+			}
+		}
+		else{
+			while((weekdayOpenInMinutes+60) < weekdayClosedInMinutes){
+				int tmp = weekdayOpenInMinutes+60;
+				weekdayOpenInMinutes += (movieDuration + 60);
+				try{
+					System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(weekdayOpenInMinutes)));
+				}
+				catch(Exception e){
+					System.out.println(e);
+				}
+				weekdayOpenInMinutes += 35;
 			}
 		}
 		
