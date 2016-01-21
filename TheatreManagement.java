@@ -121,11 +121,11 @@ public class TheatreManagement {
 	
 		
 	private static void doSchedule(int openMins, int closedMins, int movieDuration){
-		int tmp = closedMins;
+		int tmp = closedMins-1;
 		ArrayList<String> minutesArray = new ArrayList<String>();
-		while(openMins <= closedMins){
-			closedMins -= movieDuration;
-			if(openMins <= closedMins){
+		while(closedMins >= openMins  ){
+			if(closedMins >= openMins ){
+				closedMins -= movieDuration;
 				try{
 					minutesArray.add(formatTime(minutesToTime(prefferedTime(closedMins))) + " - " + formatTime(minutesToTime(tmp)));
 				}
@@ -133,11 +133,28 @@ public class TheatreManagement {
 					System.out.println(e);
 				}
 			closedMins -= 35;
-			tmp = closedMins;
+			tmp = closedMins-1;
 			}
 		}
-		printArray(minutesArray);
+		printReversedArrayList(minutesArray);
 		
+		/*
+		ArrayList<String> minutesArray = new ArrayList<String>();
+		int tmp = closedMins-1;
+		while(openMins < closedMins){
+			tmp -= movieDuration;
+			if(openMins < closedMins){
+				try{
+					minutesArray.add(formatTime(minutesToTime(prefferedTime(tmp))) + " - " + formatTime(minutesToTime(closedMins-1)));
+				}
+				catch(Exception e){
+					System.out.println(e);
+				}
+				tmp -= 35;		
+				closedMins = tmp;
+			}
+		}
+		printReversedArrayList(minutesArray);	*/
 	}
 	
 	private static int prefferedTime(int orginalTime){
@@ -147,7 +164,7 @@ public class TheatreManagement {
 		return orginalTime;
 	}
 	
-	public static void printArray(ArrayList<String> arrayList){
+	public static void printReversedArrayList(ArrayList<String> arrayList){
 		for(int i = (arrayList.size() - 1); i >= 0; i--){
 			try{
 				System.out.println(arrayList.get(i));
