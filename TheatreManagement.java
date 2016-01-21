@@ -11,10 +11,6 @@ public class TheatreManagement {
 	public static void main(String[] args) {
 		try {
 			System.out.println(printCurrentDate()+"\n");
-			//System.out.println(convertIntoMinutes(dateString(weekendClose)));
-			//System.out.println(minutesToTime(1410));
-			//System.out.println(dateString(weekdayOpen) + "  - " + dateString(weekdayClose));
-			//System.out.println(formatTime("20:46"));
 			readFile(args[0]);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -60,7 +56,7 @@ public class TheatreManagement {
 			formattedTitle = singleMovieTitleSplitArray[0] + " - Rated " + singleMovieTitleSplitArray[2] + ", " + singleMovieTitleSplitArray[3];
 			movieDuration = convertIntoMinutes(singleMovieTitleSplitArray[3]);
 			System.out.println(formattedTitle);
-			timeScheduler(movieDuration, isWeekend(dayOfWeek));
+			timeScheduler(movieDuration,isWeekend(dayOfWeek));
 		}
 	}
 	
@@ -108,45 +104,16 @@ public class TheatreManagement {
 	}
 	
 	private static void timeScheduler(int movieDuration, boolean weekend){
-		int weekendOpenInMinutes = convertIntoMinutes(weekendOpen) + 60; //690
-		int weekendClosedInMinutes = convertIntoMinutes(weekendClose); //1410
-		int weekdayOpenInMinutes = convertIntoMinutes(weekdayOpen) + 60; //720
-		int weekdayClosedInMinutes = convertIntoMinutes(weekdayClose); //1380
-		//int tmp = weekdayOpenInMinutes;
+		int weekendOpenInMinutes = convertIntoMinutes(weekendOpen) + 60; //690 minutes
+		int weekendClosedInMinutes = convertIntoMinutes(weekendClose);   //1410 minutes
+		int weekdayOpenInMinutes = convertIntoMinutes(weekdayOpen) + 60; //720 minutes
+		int weekdayClosedInMinutes = convertIntoMinutes(weekdayClose);   //1380 minutes
 		
 		if(weekend){
 			doSchedule(weekendOpenInMinutes,weekendClosedInMinutes, movieDuration);
-			/*while(weekendOpenInMinutes < weekendClosedInMinutes){
-				weekendOpenInMinutes += movieDuration;
-				prefferedTime(tmp);
-				if(weekendOpenInMinutes < weekendClosedInMinutes){
-					try{
-						System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(weekendOpenInMinutes)));
-					}
-					catch(Exception e){
-						System.out.println(e);
-					}
-				}
-				weekendOpenInMinutes += 35;
-				tmp = weekendOpenInMinutes;
-			}*/
 		}
 		else{
 			doSchedule(weekdayOpenInMinutes,weekdayClosedInMinutes, movieDuration);
-			/*while(weekdayOpenInMinutes < weekdayClosedInMinutes){
-				weekdayOpenInMinutes += movieDuration;
-				prefferedTime(tmp);
-				if(weekdayOpenInMinutes < weekdayClosedInMinutes){
-					try{
-						System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(weekdayOpenInMinutes)));
-					}
-					catch(Exception e){
-						System.out.println(e);
-					}
-				}
-				weekdayOpenInMinutes += 35;
-				tmp = weekdayOpenInMinutes;
-			}*/
 		}
 		
 		System.out.println();
@@ -154,27 +121,40 @@ public class TheatreManagement {
 	
 		
 	private static void doSchedule(int openMins, int closedMins, int movieDuration){
-		int tmp = openMins;
-		while(openMins < closedMins){
-			openMins += movieDuration;
-			prefferedTime(tmp);
-			if(openMins < closedMins){
+		int tmp = closedMins;
+		ArrayList<String> minutesArray = new ArrayList<String>();
+		while(openMins <= closedMins){
+			closedMins -= movieDuration;
+			if(openMins <= closedMins){
 				try{
-					System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(openMins)));
+					minutesArray.add(formatTime(minutesToTime(prefferedTime(closedMins))) + " - " + formatTime(minutesToTime(tmp)));
 				}
 				catch(Exception e){
 					System.out.println(e);
 				}
+			closedMins -= 35;
+			tmp = closedMins;
 			}
-			openMins += 35;
-			tmp = openMins;
 		}
+		printArray(minutesArray);
+		
 	}
 	
 	private static int prefferedTime(int orginalTime){
 		while(orginalTime % 5 != 0){
-			orginalTime += 1;
+			orginalTime -= 1;
 		}
 		return orginalTime;
+	}
+	
+	public static void printArray(ArrayList<String> arrayList){
+		for(int i = (arrayList.size() - 1); i >= 0; i--){
+			try{
+				System.out.println(arrayList.get(i));
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
+		}
 	}
 }
