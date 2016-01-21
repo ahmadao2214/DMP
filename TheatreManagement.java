@@ -112,14 +112,13 @@ public class TheatreManagement {
 		int weekendClosedInMinutes = convertIntoMinutes(weekendClose); //1410
 		int weekdayOpenInMinutes = convertIntoMinutes(weekdayOpen) + 60; //720
 		int weekdayClosedInMinutes = convertIntoMinutes(weekdayClose); //1380
-		int tmp = weekdayOpenInMinutes;
+		//int tmp = weekdayOpenInMinutes;
 		
 		if(weekend){
-			while((weekendOpenInMinutes) < weekendClosedInMinutes){
+			doSchedule(weekendOpenInMinutes,weekendClosedInMinutes, movieDuration);
+			/*while(weekendOpenInMinutes < weekendClosedInMinutes){
 				weekendOpenInMinutes += movieDuration;
-				while(tmp % 5 != 0){
-					tmp += 1;
-				}
+				prefferedTime(tmp);
 				if(weekendOpenInMinutes < weekendClosedInMinutes){
 					try{
 						System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(weekendOpenInMinutes)));
@@ -130,14 +129,13 @@ public class TheatreManagement {
 				}
 				weekendOpenInMinutes += 35;
 				tmp = weekendOpenInMinutes;
-			}
+			}*/
 		}
 		else{
-			while((weekdayOpenInMinutes) < weekdayClosedInMinutes){
+			doSchedule(weekdayOpenInMinutes,weekdayClosedInMinutes, movieDuration);
+			/*while(weekdayOpenInMinutes < weekdayClosedInMinutes){
 				weekdayOpenInMinutes += movieDuration;
-				while(tmp % 5 != 0){
-					tmp += 1;
-				}
+				prefferedTime(tmp);
 				if(weekdayOpenInMinutes < weekdayClosedInMinutes){
 					try{
 						System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(weekdayOpenInMinutes)));
@@ -148,9 +146,35 @@ public class TheatreManagement {
 				}
 				weekdayOpenInMinutes += 35;
 				tmp = weekdayOpenInMinutes;
-			}
+			}*/
 		}
 		
 		System.out.println();
+	}
+	
+		
+	private static void doSchedule(int openMins, int closedMins, int movieDuration){
+		int tmp = openMins;
+		while(openMins < closedMins){
+			openMins += movieDuration;
+			prefferedTime(tmp);
+			if(openMins < closedMins){
+				try{
+					System.out.println(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(openMins)));
+				}
+				catch(Exception e){
+					System.out.println(e);
+				}
+			}
+			openMins += 35;
+			tmp = openMins;
+		}
+	}
+	
+	private static int prefferedTime(int orginalTime){
+		while(orginalTime % 5 != 0){
+			orginalTime += 1;
+		}
+		return orginalTime;
 	}
 }
