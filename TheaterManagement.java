@@ -10,9 +10,9 @@ import java.util.Date;
 public class TheaterManagement {
 	public static void main(String[] args) {
 		try {
-			TheaterManagement tm = new TheaterManagement();
-			System.out.println(tm.printCurrentDate() + "\n");
-			tm.readFile(args[0]);
+			TheaterManagement theaterManager = new TheaterManagement();
+			System.out.println(theaterManager.printCurrentDate() + "\n");
+			theaterManager.readFile(args[0]);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -72,8 +72,9 @@ public class TheaterManagement {
 	}
 
 	private String printCurrentDate() {
-		return strDays[now.get(Calendar.DAY_OF_WEEK) - 1] + " " + (now.get(Calendar.MONTH) + 1) + "/"
-				+ now.get(Calendar.DATE) + "/" + now.get(Calendar.YEAR) + " ";
+		return strDays[now.get(Calendar.DAY_OF_WEEK) - 1] +
+				" " + (now.get(Calendar.MONTH) + 1) + 
+				"/"	+ now.get(Calendar.DATE) + "/" + now.get(Calendar.YEAR);
 	}
 
 	private void timeScheduler(int movieDuration, boolean weekend) {
@@ -99,8 +100,7 @@ public class TheaterManagement {
 			tmp = prefferedTime(tmp - movieDuration);
 			if (tmp > openMins) {
 				try {
-					minutesArray.add(
-							formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(tmp + movieDuration)));
+					minutesArray.add(formatTime(minutesToTime(tmp)) + " - " + formatTime(minutesToTime(tmp + movieDuration)));
 				} catch (Exception e) {
 					System.out.println(e);
 				}
@@ -125,11 +125,7 @@ public class TheaterManagement {
 
 	private void printReversedArrayList(ArrayList<String> arrayList) {
 		for (int i = (arrayList.size() - 1); i >= 0; i--) {
-			try {
 				System.out.println(arrayList.get(i));
-			} catch (Exception e) {
-				System.out.println(e);
-			}
 		}
 	}
 }
