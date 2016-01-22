@@ -1,19 +1,19 @@
-# First day as TheatreManager?
+# First day as Theater Manager?
 
-TheatreManager replaces manual systems by taking in a single text file and returning a schedule under business rules.
+TheaterManagement replaces manual systems by taking in a single text file and returning a schedule under business rules.
 
 ###To Start
 * 1) Open command prompt
-* 2) Navigate to directory containing TheatreManagement.java
+* 2) Navigate to directory containing TheaterManagement.java
 * 3) Type in: 
 ```sh
-javac Theatremanagement.java
+javac TheaterManagement.java
 ```
 * 4) Then type in:
 ```sh
-java TheatreManagement dmynd.txt
+java TheaterManagement dmynd.txt
 ```
-> (Note: If you'd like to use your own file, make sure to save it in the same directory as TheatreManagement.java)
+> (Note: If you'd like to use your own file, make sure to save it in the same directory as TheaterManagement.java)
 
 
 ### Business Rules
@@ -25,7 +25,7 @@ java TheatreManagement dmynd.txt
 * Early hours scheduled last.
 * Showtimes should start at easy to read times (2:35 is preferred to 2:37).
 
-### Theatre Hours
+### TheaterManagement Hours
 ```sh
 Monday - Thursday 11:00am - 11:00pm
 Friday - Sunday 10:30am - 11:30pm
@@ -34,8 +34,8 @@ Friday - Sunday 10:30am - 11:30pm
 # Example
 Run in command prompt: 
 ```sh
-[Directory Path\..]>javac Theatremanagement.java
-[Directory Path\..]>java TheatreManagement dmynd.txt
+[Directory Path\..]>javac TheaterManagement.java
+[Directory Path\..]>java TheaterManagement dmynd.txt
 ```
 
 Input (dmynd.txt):
