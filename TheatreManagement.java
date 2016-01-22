@@ -19,14 +19,10 @@ public class TheatreManagement {
 	}
 
 	private BufferedReader bReader = null;
-	private String movieInfo[] = new String[200];
 
 	private Calendar now = Calendar.getInstance();
-	private String[] strDays = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-			"Saturday" };
+	private String[] strDays = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",	"Saturday" };
 	private int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-	private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-	private Date day = new Date();
 
 	private String weekdayOpen = "11:00";
 	private String weekdayClose = "23:00";
@@ -46,8 +42,7 @@ public class TheatreManagement {
 		String singleMovieSplitArray[] = singleMovie.split(",");
 		String formattedTitle = " ";
 		int movieDuration = 0;
-		formattedTitle = singleMovieSplitArray[0] + " - Rated " + singleMovieSplitArray[2] + ", "
-				+ singleMovieSplitArray[3];
+		formattedTitle = singleMovieSplitArray[0] + " - Rated " + singleMovieSplitArray[2] + ", "+ singleMovieSplitArray[3];
 		movieDuration = convertIntoMinutes(singleMovieSplitArray[3]);
 		System.out.println(formattedTitle);
 		timeScheduler(movieDuration, isWeekend(dayOfWeek));
@@ -80,7 +75,7 @@ public class TheatreManagement {
 	}
 
 	private void timeScheduler(int movieDuration, boolean weekend) {
-		int weekdayOpenInMinutes = convertIntoMinutes(weekdayOpen) + 60; // 720 minutes																		// minutes
+		int weekdayOpenInMinutes = convertIntoMinutes(weekdayOpen) + 60; // 720 minutes
 		int weekdayClosedInMinutes = convertIntoMinutes(weekdayClose); // 1380 minutes
 		int weekendOpenInMinutes = convertIntoMinutes(weekendOpen) + 60; // 690 minutes
 		int weekendClosedInMinutes = convertIntoMinutes(weekendClose); // 1410 minutes
