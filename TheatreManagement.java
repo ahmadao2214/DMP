@@ -24,10 +24,11 @@ public class TheatreManagement {
 	private String[] strDays = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",	"Saturday" };
 	private int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
 
-	private String weekdayOpen = "11:00";
-	private String weekdayClose = "23:00";
-	private String weekendOpen = "11:30";
-	private String weekendClose = "23:30";
+	//Military Time
+	private final String WEEKDAY_OPEN = "11:00";
+	private final String WEEKDAY_CLOSE = "23:00";
+	private final String WEEKEND_OPEN = "11:30";
+	private final String WEEKEND_CLOSE = "23:30";
 
 	private void readFile(String fileName) throws IOException {
 		String bLine = "";
@@ -55,7 +56,7 @@ public class TheatreManagement {
 		minutes = Integer.parseInt(arr[0]) * 60 + Integer.parseInt(arr[1]);
 		return minutes;
 	}
-
+	
 	private String minutesToTime(int min) {
 		String startTime = "00:00";
 		String newtime;
@@ -65,6 +66,7 @@ public class TheatreManagement {
 		return newtime;
 	}
 
+	
 	private boolean isWeekend(int day) {
 		return (day == 1 || day == 6 || day == 7);
 	}
@@ -75,10 +77,10 @@ public class TheatreManagement {
 	}
 
 	private void timeScheduler(int movieDuration, boolean weekend) {
-		int weekdayOpenInMinutes = convertIntoMinutes(weekdayOpen) + 60; // 720 minutes
-		int weekdayClosedInMinutes = convertIntoMinutes(weekdayClose); // 1380 minutes
-		int weekendOpenInMinutes = convertIntoMinutes(weekendOpen) + 60; // 690 minutes
-		int weekendClosedInMinutes = convertIntoMinutes(weekendClose); // 1410 minutes
+		int weekdayOpenInMinutes = convertIntoMinutes(WEEKDAY_OPEN) + 60; // 720 minutes
+		int weekdayClosedInMinutes = convertIntoMinutes(WEEKDAY_CLOSE); // 1380 minutes
+		int weekendOpenInMinutes = convertIntoMinutes(WEEKEND_OPEN) + 60; // 690 minutes
+		int weekendClosedInMinutes = convertIntoMinutes(WEEKEND_CLOSE); // 1410 minutes
 
 		if (weekend) {
 			doSchedule(weekendOpenInMinutes, weekendClosedInMinutes, movieDuration);
